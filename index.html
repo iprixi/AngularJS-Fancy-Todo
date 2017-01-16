@@ -1,0 +1,35 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script src="js/angular.min.js"></script>
+  <script src="js/angular.fancytodolist.js"></script>
+  <link rel="stylesheet" media="all" type="text/css" href="css/style.css" />
+</head>
+<body ng-app="todoModule" >
+<div class="container" ng-controller="TodoController" ng-init="TodoInit()" >
+	<section class="app-body">
+		<section class="todo-list" ng-if="todos.length > 0" >
+			<div class="todo-remaining" ng-if="todos.length > 0">
+				<span ng-if="remaining() > 0">{{remaining()}} of {{todos.length}} remaining</span>
+				<span ng-if="remaining() == 0">All Done!</span>
+			</div>
+			<div class="clear-list" ng-if="remaining() != todos.length"><a href="" ng-click="archive()">Clear now!</a></div>
+		</section>
+		<ul ng-if="todos.length > 0" class="todo-list-items">
+			<li ng-repeat="todo in todos track by $index">
+				<input type="checkbox" ng-model="todo.done" ng-change="todoChange()">
+				<span class="date">{{todo.time | date:'medium'}}</span>
+				<span class="todo-{{ todo.done }}">{{ todo.text }}</span>
+			</li>
+		</ul>
+		<div ng-if="todos.length == 0" class="nothing-todo">Nothing to do!</div>
+		<form ng-submit="addTodo()" class="todo-form">
+			<input type="text" ng-model="todoText" placeholder="New ToDo?" />
+		</form>
+	</section>
+</div>
+</body>
+
+
+</html>
